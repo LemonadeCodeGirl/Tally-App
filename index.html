@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tetsing out JS</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+    <script>
+        
+
+        function init(spaces){
+
+        }
+
+        
+        // total = 0;
+        var index = 0;
+        var lastClicked;
+        // localStorage.setItem(1,0);
+
+        function addOne(number, iden){
+            // total += number;
+            localStorage.setItem(index, Number(localStorage.getItem(index)) + number);
+            document.getElementById("tallyNumber").innerHTML = localStorage.getItem(index);
+
+            $(document).ready(function(){
+                $("h3").trigger("click");
+            });
+
+        }
+
+        function reset(){
+            localStorage.setItem(index,0);
+
+            $(document).ready(function(){
+                $("h3").trigger("click");
+            });
+            
+            document.getElementById("tallyNumber").innerHTML = localStorage.getItem(index);
+
+        }
+
+        function switchVariables(variable, idLastClicked1) {
+
+            
+            // document.getElementById(idLastClicked1).style.background = "blue";
+
+
+
+            var col = document.getElementById(idLastClicked1);
+            
+            
+            
+            index = variable;
+
+            if(localStorage.getItem(variable) === null){
+                localStorage.setItem(variable, 0);
+            }
+            
+            $(document).ready(function(){
+                $("h3").trigger("click");
+            });
+
+            document.getElementById("tallyNumber").innerHTML = localStorage.getItem(index);
+            
+            updateCount(idLastClicked1);
+
+
+            lastClicked = idLastClicked1;
+
+            // index = variable;
+
+        }
+
+        function updateCount(idLastClicked){
+            var currentTab;
+
+            
+            // var mainHeading = document.getElementById("#currVariable");
+
+            switch(index){
+                case 0:
+                    currentTab = "A";
+                    break;
+                case 1:
+                    currentTab = "B";
+                    break;
+                case 2:
+                    currentTab = "C";
+                    break;
+                case 3:
+                    currentTab = "D";
+                    break;
+                case 4:
+                    currentTab = "E";
+                    break;   
+            }
+            
+            document.getElementById("currVariable").innerHTML = "Current Variable = " + currentTab;
+
+            
+            document.getElementById("buttonA").style.backgroundColor = "#4CAF50";
+            document.getElementById("buttonB").style.backgroundColor = "#4CAF50";
+            document.getElementById("buttonC").style.backgroundColor = "#4CAF50";
+            document.getElementById("buttonD").style.backgroundColor = "#4CAF50";
+            document.getElementById("buttonE").style.backgroundColor = "#4CAF50";
+
+            document.getElementById("button" + currentTab).style.backgroundColor = "blue";
+            // var text12 = document.createTextNode(currentTab);
+            
+            
+            // document.getElementById("tallyNumber").style.color = green;
+
+            // for(let index = 1; index < 6; index = index + 1){
+            //     var newTempId = "button" + String(index);
+            //     document.getElementById(newTempId).style.background = "yellow";
+            // }
+            
+            // var fullTagText = "button" + currentTab;
+            
+
+            // document.getElementById(fullTagText).style.background = "blue";
+
+        }
+
+        function blockColor(){
+
+        }
+        
+    </script>
+
+    <script>
+
+        var shows = true;
+
+        
+
+        $(document).ready(function(){
+
+            $("h3").on({
+                click: function(){
+                    // $(this).css("background-color", "yellow");
+                    // $(this).hide();
+                    // $(this).slideUp(1000);
+                    // for (let index = 0; index < 1; index++) {
+                        $(this).fadeOut(0);
+                        // $(this).hide();
+                        $(this).fadeIn(200);    
+                    // }
+                    // $(this).fadeIn(1000);
+                    // $(this).css("background-color", "lightblue");
+                }
+            });
+
+            $(".numberChanger").on({
+                
+            })
+
+
+            $("#howItWorksButton").on({
+                click: function(){
+
+                    // for(let index = 0; index < 3; index++) {
+                    //     $("h3").fadeOut(350);
+                    //     $("h3").fadeIn(350); 
+                    // }
+                      
+
+                    $("#howItWorksContent").slideToggle(2000);
+
+                    shows = !shows;
+
+                    if(shows){
+                        document.getElementById("howItWorksButton").innerHTML = "Hide Content";
+                    }else if (!shows){
+                        document.getElementById("howItWorksButton").innerHTML = "Show Content";
+                    }
+                }
+            })
+        });
+
+    </script>
+</head>
+<body onload="updateCount()">
+
+
+    <h1 id="headingMain">Tally Counter</h1>
+
+    
+
+    <div>
+        <h2 id="currVariable">Current Variable: </h2>
+        <h3 id="tallyNumber" onmouseenter="animation()">0</h3>
+
+        
+        <button type="button" class="numberChanger" onmousedown="addOne(-1, tallyNumber)">Subtract</button>
+        <button type="button" class="numberChanger" onmousedown="addOne(1, tallyNumber)">Add</button>
+        <button type="button" class="numberReset" onmousedown="reset()">Reset</button>
+    </div>
+
+    <br>
+
+    <div>
+        <h2>Var buttons</h2>
+
+        <button type="button" class="variables" id = "buttonA" onmousedown="switchVariables(0, id)">A</button>
+        <button type="button" class="variables" id = "buttonB" onmousedown="switchVariables(1, id)">B</button>
+        <button type="button" class="variables" id = "buttonC" onmousedown="switchVariables(2, id)">C</button>
+        <button type="button" class="variables" id = "buttonD" onmousedown="switchVariables(3, id)">D</button>
+        <button type="button" class="variables" id = "buttonE" onmousedown="switchVariables(4, id)">E</button>
+        
+    </div>
+
+    <div id = "howItWorks">
+        <div id="howItWorksContent">
+            <h1>How the Tally Counter Works</h1>
+
+            <p>The counter is activated by pressing a button located above the screen. This causes the first ring to advance one number. After the count has reached 0009, then the second ring will advance one click and the first ring will come back to zero displaying 0010. To reset the counter, a knob is located on the side.
+            </p>
+        </div>
+
+        <br><br><br>
+
+        <button type="button" id="howItWorksButton">Click to hide</button>
+    </div>
+    
+    
+<!-- 
+
+    <h1>This is a website</h1>
+
+    <p id="demo">this is a test</p>
+
+    <p id="counterParagraph">Count with me!</p>
+
+    <script>
+        // document.getElementById("demo").innerHTML = 1;
+
+        var total = 0;
+
+        function addToTotal(){
+            var ch = document.getElementById("demo");
+            total = total + 1;
+            // ch.innerHTML(total);
+            document.getElementById("counterParagraph").innerHTML = total;
+        }
+
+        function displayToScreenInt(number){
+            document.getElementById("demo").innerHTML = number;
+        }
+
+        document.write(3+8);
+    </script>
+
+    <script>
+        var base = 3;
+        var power = 3;
+
+        // alert(base ** power);
+        // alert(myFirstFunction() );
+        // alert(test1function(9));
+
+        const person = {
+            firstName: "Olivia",
+            lastName: "Bisset",
+            age: 18,
+            eyeColor: "brown"
+        };
+        
+        
+        
+    </script>
+
+    
+    <button id="demo"type="button" onmousedown="addToTotal()">Click this button to close the window!</button> -->
+
+</body>
+</html>
